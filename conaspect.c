@@ -24,7 +24,7 @@ typedef vec(float,2) vec2f;
 typedef vec(int32_t,2) vec2i;
 typedef vec(float,2) vec2f;
 #define round_to_vec2i(a) __builtin_convertvector(a,vec2i)
-#elif _MSC_VER
+#elif defined(_MSC_VER) && (defined(__x86_64__) || defined(__i386__))
 #include <intrin.h>
 typedef __m64 vec2i;
 typedef __m128 vec2f;
@@ -56,7 +56,7 @@ int main(int argc, char** argv)
 		exit(EXIT_SUCCESS);
 	}
 
-	fprintf(stderr, "Usage: %s <width> <height> [scale]...\nCalculate aspect ratio and kernel console parameters.\n\n  <width>  - integer screen width\n  <height> - integer screen height\n  [scale]  - optional floating point row multiplier\n\nExamples:\n%s 1024 768\n%s 1024 768 2.0\n\n", argv[0], argv[0], argv[0]);
+	fprintf(stderr, "Usage: %s <width> <height> [scale]...\nCalculate aspect ratio and kernel console parameters.\n\n  <width>  - integer screen width\n  <height> - integer screen height\n  [col scale]  - optional floating point column multiplier\n  [row scale]  - optional floating point row multiplier\n\nExamples:\n%s 1920 1080\n%s 1920 1080 2.0\n%s 1920 1080 1.0 2.0\n\n", argv[0], argv[0], argv[0], argv[0]);
 
 	exit(EXIT_FAILURE);
 }
