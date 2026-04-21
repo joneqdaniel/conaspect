@@ -1,2 +1,4 @@
 conaspect
+conaspect.exe
 *.o
+*.s
