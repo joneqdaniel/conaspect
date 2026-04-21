@@ -18,14 +18,17 @@
 #define vec(t,n) typeof(t __attribute__((ext_vector_type(n), __may_alias__)))
 typedef vec(int32_t,2) vec2i;
 typedef vec(float,2) vec2f;
+#define round_to_vec2i(a) __builtin_convertvector(a,vec2i)
 #elif __GNUC__
 #define vec(t,n) typeof(t __attribute__((vector_size(sizeof(t) * n), __may_alias__)))
 typedef vec(int32_t,2) vec2i;
 typedef vec(float,2) vec2f;
+#define round_to_vec2i(a) __builtin_convertvector(a,vec2i)
 #elif _MSC_VER
 #include <intrin.h>
 typedef __m64 vec2i;
 typedef __m128 vec2f;
+#define round_to_vec2i(a) _mm_cvtps_epi32(a)
 #else
 #warning "Your compiler doens't support SIMD vector extensions!"
 #endif
@@ -40,11 +43,10 @@ int main(int argc, char** argv)
 		vec2i res     = { atoi(argv[1])      , atoi(argv[2])       };
 		vec2i ratio   = { gcd(res[0], res[1]), gcd(res[0], res[1]) }; 
 		vec2i aspect  = { res[0] / ratio[0]  , res[1] / ratio[1]   };
-		vec2i console = { (res[0] >> 3)      , (res[1] >> 4)       };
 		vec2f scale   = { argc > 3 ? strtof(argv[3], NULL) : 1.0f,
 		                  argc > 4 ? strtof(argv[4], NULL) : 1.0f  };
+		vec2i console = round_to_vec2i(((vec2f){ (float)(res[0] >> 3),(float)(res[1] >> 4) } * scale));
 
-		console = __builtin_convertvector((vec(float,2)){ (float)console[0], (float)console[1] } * scale, vec2i);
 
 		fprintf(stdout, "MODE: %dx%d %d:%d CONSOLE: %dx%d SCALE: %fx%f\n",
 		                res[0], res[1],
