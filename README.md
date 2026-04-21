@@ -15,6 +15,6 @@ Calculate aspect ratio and kernel console parameters.
   [scale]  - optional floating point row multiplier
 
 Examples:
-./conaspect 1024 768
-./conaspect 1024 768 2.0
+conaspect 1024 768
+conaspect 1024 768 2.0
 ```
