@@ -1,22 +1,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <math.h>
 #include <string.h>
 #include <sys/param.h>
 
+#define INLINE __attribute__((nothrow,always_inline,flatten,const)) inline
+
+#ifdef __x86_64__
+#define REGPARM __attribute__((sseregparm))
+#elif defined(__i386__)
+#define REGPARM __attribute__((regparm(8)))
+#else
+#define REGPARM
+#endif
+
 #ifndef __MMX__
+#ifdef __clang__
+typedef int32_t __m64 __attribute__((__ext_vector_type__(2), __may_alias__));
+#else
 typedef int32_t __m64 __attribute__((__vector_size__(sizeof(int32_t) * 2), __may_alias__));
+#endif
 #else
 #include <mmintrin.h>
 #endif
 
 typedef __m64 vec2i;
 
-int gcd(int x, int y)
-{
-	return y == 0 ? MAX(x, -x) : gcd(y, x % y);
-}
+INLINE REGPARM static int gcd(int x, int y) { return y == 0 ? MAX(x, -x) : gcd(y, x % y); }
 
 
 int main(int argc, char** argv)
