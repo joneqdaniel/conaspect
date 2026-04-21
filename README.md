@@ -4,7 +4,7 @@ calculate linux kernel console rows and columns for given resolution
 ## Build
 ```sh
 CFLAGS="-march=<your architecture> -mfpmath=<your SIMD>" PREFIX="your destination prefix" make clean install
-``
+```
 ## Usage
 ```sh
 Usage: conaspect <width> <height> [scale]...
