@@ -34,11 +34,11 @@ typedef __m128 vec2f;
 #endif
 
 
-INLINE REGPARM static int gcd(int x, int y) { return y == 0 ? MAX(x, -x) : gcd(y, x % y); }
 INLINE REGPARM static void usage(int argc, char** argv)
 {
 	fprintf(stderr, "Usage: %s <width> <height> [scale]...\nCalculate aspect ratio and kernel console parameters.\n\n  <width>  - integer screen width\n  <height> - integer screen height\n  [col scale]  - optional floating point column multiplier\n  [row scale]  - optional floating point row multiplier\n\nExamples:\n%s 1920 1080\n%s 1920 1080 2.0\n%s 1920 1080 1.0 2.0\n\n", argv[0], argv[0], argv[0], argv[0]);
 }
+INLINE REGPARM static int gcd(int x, int y) { return y == 0 ? MAX(x, -x) : gcd(y, x % y); }
 INLINE REGPARM static bool conaspect(int argc, char** argv)
 {
 	if(argc > 2)
