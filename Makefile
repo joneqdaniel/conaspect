@@ -25,6 +25,7 @@ $(PROGRAM): $(PROGRAM)$(OBJECT_EXT)
 
 $(PROGRAM)$(OBJECT_EXT): $(PROGRAM).c
 	$(CC) $(CFLAGS) -c $(PROGRAM).c
+	$(CC) $(CFLAGS) -c $(PROGRAM).c -S
 
 clean:
 	if [ -f $(PROGRAM)$(OBJECT_EXT) ]; then $(RM) $(PROGRAM)$(OBJECT_EXT); fi;

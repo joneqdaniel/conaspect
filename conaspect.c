@@ -35,8 +35,11 @@ typedef __m128 vec2f;
 
 
 INLINE REGPARM static int gcd(int x, int y) { return y == 0 ? MAX(x, -x) : gcd(y, x % y); }
-
-int main(int argc, char** argv)
+INLINE REGPARM static void usage(int argc, char** argv)
+{
+	fprintf(stderr, "Usage: %s <width> <height> [scale]...\nCalculate aspect ratio and kernel console parameters.\n\n  <width>  - integer screen width\n  <height> - integer screen height\n  [col scale]  - optional floating point column multiplier\n  [row scale]  - optional floating point row multiplier\n\nExamples:\n%s 1920 1080\n%s 1920 1080 2.0\n%s 1920 1080 1.0 2.0\n\n", argv[0], argv[0], argv[0], argv[0]);
+}
+INLINE REGPARM static bool conaspect(int argc, char** argv)
 {
 	if(argc > 2)
 	{
@@ -53,11 +56,13 @@ int main(int argc, char** argv)
 		fprintf(stdout, "MODE: %dx%d %d:%d CONSOLE: %dx%d SCALE: %fx%f\n",
 		                res[0], res[1], aspect[0], aspect[1],
 				console[0], console[1], scale[0], scale[1]);
-
-		exit(EXIT_SUCCESS);
+		return true;
 	}
+	usage(argc, argv);
+	return false;
+}
 
-	fprintf(stderr, "Usage: %s <width> <height> [scale]...\nCalculate aspect ratio and kernel console parameters.\n\n  <width>  - integer screen width\n  <height> - integer screen height\n  [col scale]  - optional floating point column multiplier\n  [row scale]  - optional floating point row multiplier\n\nExamples:\n%s 1920 1080\n%s 1920 1080 2.0\n%s 1920 1080 1.0 2.0\n\n", argv[0], argv[0], argv[0], argv[0]);
-
-	exit(EXIT_FAILURE);
+int main(int argc, char** argv)
+{
+	exit(conaspect(argc,argv) ? EXIT_SUCCESS : EXIT_FAILURE);
 }
