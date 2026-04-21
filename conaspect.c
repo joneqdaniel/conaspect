@@ -43,8 +43,8 @@ INLINE REGPARM static bool conaspect(int argc, char** argv)
 {
 	if(argc > 2)
 	{
-		vec2i res     = { atoi(argv[1]), atoi(argv[2]) };
-		vec2i ratio   = {  gcd( res[0] , res[1])       };
+		vec2i res     = { atoi(argv[1])     , atoi(argv[2])        };
+		vec2i ratio   = { gcd(res[0],res[1]), gcd(res[0],res[1])   };
 		vec2f scale   = { argc > 3 ? strtof(argv[3], NULL) : 1.0f,
 		                  argc > 4 ? strtof(argv[4], NULL) : 1.0f  };
 		vec2i console = round_to_vec2i(((vec2f){
