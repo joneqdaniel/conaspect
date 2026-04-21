@@ -40,17 +40,18 @@ int main(int argc, char** argv)
 {
 	if(argc > 2)
 	{
-		vec2i res     = { atoi(argv[1])      , atoi(argv[2])       };
-		vec2i ratio   = { gcd(res[0], res[1]), gcd(res[0], res[1]) }; 
-		vec2i aspect  = { res[0] / ratio[0]  , res[1] / ratio[1]   };
+		vec2i res     = { atoi(argv[1]), atoi(argv[2]) };
+		vec2i ratio   = {  gcd( res[0] , res[1])       };
 		vec2f scale   = { argc > 3 ? strtof(argv[3], NULL) : 1.0f,
 		                  argc > 4 ? strtof(argv[4], NULL) : 1.0f  };
-		vec2i console = round_to_vec2i(((vec2f){ (float)(res[0] >> 3),(float)(res[1] >> 4) } * scale));
-
+		vec2i console = round_to_vec2i(((vec2f){
+		                (float)(res[0] >> 3),
+				(float)(res[1] >> 4) 
+				} * scale));
+		vec2i aspect  = res / ratio;
 
 		fprintf(stdout, "MODE: %dx%d %d:%d CONSOLE: %dx%d SCALE: %fx%f\n",
-		                res[0], res[1],
-				aspect[0], aspect[1],
+		                res[0], res[1], aspect[0], aspect[1],
 				console[0], console[1], scale[0], scale[1]);
 
 		exit(EXIT_SUCCESS);
