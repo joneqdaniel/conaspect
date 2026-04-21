@@ -16,9 +16,9 @@
 
 #ifndef __MMX__
 #ifdef __clang__
-typedef int32_t __m64 __attribute__((__ext_vector_type__(2), __may_alias__));
+typedef int32_t __m64 __attribute__((ext_vector_type(2), __may_alias__));
 #else
-typedef int32_t __m64 __attribute__((__vector_size__(sizeof(int32_t) * 2), __may_alias__));
+typedef int32_t __m64 __attribute__((vector_size(sizeof(int32_t) * 2), __may_alias__));
 #endif
 #else
 #include <mmintrin.h>
