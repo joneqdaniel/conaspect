@@ -52,10 +52,11 @@ INLINE REGPARM static bool conaspect(int argc, char** argv)
 				(float)(res[1] >> 4) 
 				} * scale));
 		vec2i aspect  = res / ratio;
+		vec2i caspect = round_to_vec2i(((vec2f){ (float)aspect[0], (float)aspect[1] } * scale));
 
-		fprintf(stdout, "MODE: %dx%d %d:%d CONSOLE: %dx%d SCALE: %fx%f\n",
+		fprintf(stdout, "MODE: %dx%d %d:%d CONSOLE: %dx%d %d:%d SCALE: %fx%f\n",
 		                res[0], res[1], aspect[0], aspect[1],
-				console[0], console[1], scale[0], scale[1]);
+				console[0], console[1], caspect[0], caspect[1], scale[0], scale[1]);
 		return true;
 	}
 	usage(argc, argv);
